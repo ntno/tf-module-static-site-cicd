@@ -12,7 +12,7 @@
                 "s3:GetBucketWebsite",
                 "s3:GetBucketAcl",
                 "s3:GetBucketPolicy",
-                "s3:GetEncryptionConfiguration",
+                "s3:GetEncryptionConfiguration"
             ],
             "Resource": [
                 "arn:aws:s3:::${bucket-name}"
