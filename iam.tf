@@ -26,7 +26,7 @@ resource "aws_iam_role" "ci_role" {
 resource "aws_iam_role" "cd_role" {
   name = var.cd_role_name
   tags = var.tags
-  assume_role_policy = templatefile("${path.module}/templates/cicd-github-trust-policy.tpl",
+  assume_role_policy = templatefile("${path.module}/templates/cd-github-trust-policy.tpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
       github-repo    = var.github_repo
