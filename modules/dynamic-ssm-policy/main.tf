@@ -45,7 +45,7 @@ resource "aws_iam_policy" "ssm_policy" {
   description = var.policy_description
   tags        = var.tags
 
-  policy = aws_iam_policy_document.ssm_policy_document.json
+  policy = data.aws_iam_policy_document.ssm_policy_document.json
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_policy_attachment" {

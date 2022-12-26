@@ -27,14 +27,14 @@ resource "aws_iam_policy" "read_write_cloudformation_ci_policy" {
 }
 
 module "ssm_ci_policy_attachment" {
-  count       = local.enable_ci_ssm_policy ? 1 : 0
-  source = "./modules/dynamic-ssm-policy"
-  read   = var.ci_ssm_paths["read"]
-  write  = var.ci_ssm_paths["write"]
-  policy_name = format("CI_ReadWrite_SSM_%s", var.site_bucket)
+  count              = local.enable_ci_ssm_policy ? 1 : 0
+  source             = "./modules/dynamic-ssm-policy"
+  read               = var.ci_ssm_paths["read"]
+  write              = var.ci_ssm_paths["write"]
+  policy_name        = format("CI_ReadWrite_SSM_%s", var.site_bucket)
   policy_description = format("Allows read/write on %s CI SSM Parameters", var.site_bucket)
-  role_name       = aws_iam_role.ci_role.name
-  tags = var.tags
+  role_name          = aws_iam_role.ci_role.name
+  tags               = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_ci_policy_attachment" {

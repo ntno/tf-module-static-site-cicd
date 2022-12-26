@@ -1,4 +1,4 @@
-output "policy_json" {
-  description = "generated JSON policy document"
-  value       = data.aws_iam_policy_document.policy_document.json
+output "policy_arn" {
+  description = "IAM Policy ARN"
+  value       = aws_iam_policy.ssm_policy.arn
 }

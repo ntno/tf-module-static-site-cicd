@@ -8,19 +8,19 @@ variable "write" {
   type        = list(string)
 }
 
-variable "policy_name"{
+variable "policy_name" {
   description = "IAM Policy Name"
-  type = string
+  type        = string
 }
 
-variable "policy_description"{
+variable "policy_description" {
   description = "IAM Policy Description"
-  type = string
+  type        = string
 }
 
 variable "role_name" {
   description = "IAM Role to attach policy to"
-  type = string
+  type        = string
 }
 
 variable "tags" {
