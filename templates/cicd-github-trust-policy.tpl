@@ -13,7 +13,7 @@
         },
         "StringLike": {
           "token.actions.githubusercontent.com:sub": "repo:${github-org}/${github-repo}:*"
-        },
+        }
       }
     }
   ]
