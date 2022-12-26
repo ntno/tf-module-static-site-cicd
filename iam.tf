@@ -1,8 +1,8 @@
 
 resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
-  name        = format("ReadWrite_CICD_%s_S3", var.artifact_bucket_name)
+  name        = format("CICD_ReadWrite_S3_%s", var.artifact_bucket_name)
   path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s S3 bucket for CICD", var.artifact_bucket_name)
+  description = format("Allows read/write on %s objects", var.artifact_bucket_name)
   tags        = var.tags
 
   policy = templatefile("${path.module}/templates/cicd-read-write-artifacts.tpl",

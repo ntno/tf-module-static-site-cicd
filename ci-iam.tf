@@ -1,9 +1,9 @@
 
 
 resource "aws_iam_policy" "read_write_site_bucket_ci_policy" {
-  name        = format("ReadWrite_CI_%s_S3", var.ci_prefix)
+  name        = format("CI_ReadWrite_S3_%s", var.ci_prefix)
   path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s S3 buckets for CI", var.ci_prefix)
+  description = format("Allows read/write on %s* S3 buckets", var.ci_prefix)
   tags        = var.tags
 
   policy = templatefile("${path.module}/templates/ci-read-write-temp.tpl",
@@ -14,9 +14,9 @@ resource "aws_iam_policy" "read_write_site_bucket_ci_policy" {
 }
 
 resource "aws_iam_policy" "read_write_cloudformation_stack_ci_policy" {
-  name        = format("ReadWrite_%s_CloudformationStack", var.ci_prefix)
+  name        = format("CI_ReadWrite_Cloudformation_%s", var.ci_prefix)
   path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s Cloudformation Stacks", var.ci_prefix)
+  description = format("Allows read/write on %s* Cloudformation Stacks", var.ci_prefix)
   tags        = var.tags
 
   policy = templatefile("${path.module}/templates/ci-temp-cloudformation.tpl",
