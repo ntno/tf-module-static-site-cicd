@@ -26,7 +26,7 @@ endif
 
 validate: 
 	terraform init
-	terraform fmt
+	terraform fmt -recursive
 	terraform validate
 
 check-platform:
