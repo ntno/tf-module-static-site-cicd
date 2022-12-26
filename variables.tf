@@ -1,5 +1,5 @@
-variable "domain_name" {
-  description = "Domain name.  Must be owned by the AWS account.  Must be unique in S3"
+variable "site_bucket" {
+  description = "Name of the S3 bucket where the site will be deployed"
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "cloudfront_distribution_id" {
 }
 
 variable "artifact_bucket_name" {
-  description = "CI/CD bucket for storing site artifacts.  Must be unique in S3"
+  description = "Name of S3 bucket to create for storing site artifacts.  Must be unique in S3"
   type        = string
 }
 
@@ -29,7 +29,7 @@ variable "ci_prefix" {
 }
 
 variable "tags" {
-  description = "Tags to set on the bucket."
+  description = "Tags to set"
   type        = map(string)
   default     = {}
 }
