@@ -1,5 +1,5 @@
 # tf-module-static-site-cicd
-creates AWS infrastructure for reviewing static website in cicd including:
+creates AWS infrastructure for reviewing static website.  compatible with [ntno/tf-module-static-site](https://github.com/ntno/tf-module-static-site).
 
 Artifact Bucket:
 - used to store versioned site content
