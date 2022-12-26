@@ -13,7 +13,7 @@
                 "cloudformation:ListStackResources"
             ],
             "Resource": [
-                "arn:aws:cloudformation:*:${aws-account-id}:stack/${ci-prefix}*/*"
+                "arn:aws:cloudformation:${aws-region}:${aws-account-id}:stack/${ci-prefix}*/*"
             ]
         }
     ]

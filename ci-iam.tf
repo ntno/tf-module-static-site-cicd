@@ -20,6 +20,7 @@ resource "aws_iam_policy" "read_write_cloudformation_ci_policy" {
   policy = templatefile("${path.module}/templates/ci-temp-cloudformation.tpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
+      aws-region     = data.aws_region.current
       ci-prefix      = var.ci_prefix
     }
   )
