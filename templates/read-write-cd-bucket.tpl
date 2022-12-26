@@ -23,7 +23,7 @@
                 "s3:GetEncryptionConfiguration"
             ],
             "Resource": [
-                "arn:aws:s3:::${ci-prefix}*"
+                "arn:aws:s3:::${bucket-name}*"
             ]
         },
         {
@@ -38,7 +38,7 @@
                 "s3:DeleteObjectVersion"
             ],
             "Resource": [
-                "arn:aws:s3:::${ci-prefix}*/*"
+                "arn:aws:s3:::${bucket-name}*/*"
             ]
         }
     ]
