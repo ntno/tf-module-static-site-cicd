@@ -31,6 +31,8 @@ module "docs_site_cicd" {
   site_bucket                = "ntno.net"
   artifact_bucket_name       = "ntno.net-artifacts"
   ci_prefix                  = "ntno-net-ci-pr"
+  ci_role_name               = "CI-ntno-net"
+  cd_role_name               = "CD-ntno-net"
   github_repo                = "ntno.net"
   github_org                 = "ntno"
   cloudfront_distribution_id = module.docs_site.content_cloudfront_distribution_info.id
