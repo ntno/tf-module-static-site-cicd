@@ -19,7 +19,8 @@
                 "s3:DeleteBucketPolicy",
                 "s3:DeleteBucket",
                 "s3:GetBucketPolicy",
-                "s3:GetEncryptionConfiguration"
+                "s3:GetEncryptionConfiguration",
+                "s3:ListBucket"
             ],
             "Resource": [
                 "arn:aws:s3:::${ci-prefix}*"
