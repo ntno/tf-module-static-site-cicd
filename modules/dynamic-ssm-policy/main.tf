@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-data "aws_iam_policy_document" "policy_document" {
+data "aws_iam_policy_document" "ssm_policy_document" {
   dynamic "statement" {
     for_each = var.read
     content {
@@ -37,4 +37,18 @@ data "aws_iam_policy_document" "policy_document" {
       ]
     }
   }
+}
+
+resource "aws_iam_policy" "ssm_policy" {
+  name        = var.policy_name
+  path        = "/CustomerManaged/"
+  description = var.policy_description
+  tags        = var.tags
+
+  policy = aws_iam_policy_document.ssm_policy_document.json
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_policy_attachment" {
+  role       = var.role_name
+  policy_arn = aws_iam_policy.ssm_policy.arn
 }

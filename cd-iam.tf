@@ -25,15 +25,20 @@ resource "aws_iam_policy" "invalidate_cloudfront_cd_policy" {
   )
 }
 
+module "ssm_ci_policy_attachment" {
+  count       = local.enable_cd_ssm_policy ? 1 : 0
+  source = "./modules/dynamic-ssm-policy"
+  read   = var.cd_ssm_paths["read"]
+  write  = var.cd_ssm_paths["write"]
+  policy_name = format("CD_ReadWrite_SSM_%s", var.site_bucket)
+  policy_description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
+  role_name       = aws_iam_role.cd_role.name
+  tags = var.tags
+}
+
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_cd_policy_attachment" {
   role       = aws_iam_role.cd_role.name
   policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
-}
-
-resource "aws_iam_role_policy_attachment" "ssm_cd_policy_attachment" {
-  count      = local.enable_cd_ssm_policy ? 1 : 0
-  role       = aws_iam_role.cd_role.name
-  policy_arn = aws_iam_policy.ssm_cd_policy[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "read_write_site_bucket_cd_policy_attachment" {
