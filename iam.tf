@@ -12,22 +12,25 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
   )
 }
 
-resource "aws_iam_role" "role" {
+resource "aws_iam_role" "ci_role" {
   name = format("%s-CI", var.domain_name)
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+  tags = var.tags
+  assume_role_policy = templatefile("${path.module}/templates/github-trust-policy.tpl",
     {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+      github-repo = var.github_repo
+      github-org  = var.github_org
     }
-  ]
+  )
 }
-EOF
+
+resource "aws_iam_role" "cd_role" {
+  name = format("%s-CD", var.domain_name)
+  tags = var.tags
+  assume_role_policy = templatefile("${path.module}/templates/github-trust-policy.tpl",
+    {
+      github-repo = var.github_repo
+      github-org  = var.github_org
+    }
+  )
 }
+

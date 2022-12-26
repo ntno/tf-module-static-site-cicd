@@ -16,11 +16,11 @@ resource "aws_iam_policy" "invalidate_cloudfront_cd_policy" {
   name        = format("InvalidateCloudfrontDistribution_CD_%s", var.domain_name)
   path        = "/CustomerManaged/"
   description = format("Allows invalidate on %s Cloudfront Distribution", var.domain_name)
-  tags        = var.tagss
+  tags        = var.tags
 
   policy = templatefile("${path.module}/templates/invalidate-cd-cloudfront.tpl",
     {
-      aws-account-id = data.aws_caller_identity.current.account_id
+      aws-account-id             = data.aws_caller_identity.current.account_id
       cloudfront-distribution-id = var.cloudfront_distribution_id
     }
   )
