@@ -13,6 +13,7 @@ CI Role:
 
 CD Role:
   - can only be assumed in job with github environment `github_cd_environment_name`
+    - this allows you to restrict who can deploy to the CD environment via repository/workflow settings
   - read/write to objects in artifact bucket
   - read/write to objects in site bucket
   - invalidate on cloudfront distribution for site
