@@ -6,7 +6,7 @@ resource "aws_iam_policy" "read_write_site_bucket_ci_policy" {
   description = format("Allows read/write on %s S3 buckets for CI", var.ci_prefix)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/read-write-ci-bucket.tpl",
+  policy = templatefile("${path.module}/templates/ci-read-write-temp.tpl",
     {
       ci-prefix = var.ci_prefix
     }
@@ -19,7 +19,7 @@ resource "aws_iam_policy" "read_write_cloudformation_stack_ci_policy" {
   description = format("Allows read/write on %s Cloudformation Stacks", var.ci_prefix)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/read-write-cloudformation-ci-stack.tpl",
+  policy = templatefile("${path.module}/templates/ci-temp-cloudformation.tpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
       ci-prefix      = var.ci_prefix

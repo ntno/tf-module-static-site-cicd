@@ -5,7 +5,7 @@ resource "aws_iam_policy" "read_write_site_bucket_cd_policy" {
   description = format("Allows read/write on %s S3 bucket for CD", var.site_bucket)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/read-write-cd-bucket.tpl",
+  policy = templatefile("${path.module}/templates/cd-read-write-site.tpl",
     {
       bucket-name = var.site_bucket
     }
@@ -18,7 +18,7 @@ resource "aws_iam_policy" "invalidate_cloudfront_cd_policy" {
   description = format("Allows invalidate on %s Cloudfront Distribution", var.site_bucket)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/invalidate-cd-cloudfront.tpl",
+  policy = templatefile("${path.module}/templates/cd-invalidate-cloudfront.tpl",
     {
       aws-account-id             = data.aws_caller_identity.current.account_id
       cloudfront-distribution-id = var.cloudfront_distribution_id
