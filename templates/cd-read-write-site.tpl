@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "read_write_cd_bucket_policy",
+    "Id": "cd_read_write_site_policy",
     "Statement": [
         {
             "Sid": "ReadCdBucketConfig",

@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "read_write_ci_cloudformation_policy",
+    "Id": "ci_temp_cloudformation_policy",
     "Statement": [
         {
             "Sid": "CreateDestroyCiCloudformationStacks",

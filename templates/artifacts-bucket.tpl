@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "bucket_policy",
+    "Id": "artifacts_bucket_policy",
     "Statement": [
         {
             "Sid": "DenyIncorrectEncryptionHeader",

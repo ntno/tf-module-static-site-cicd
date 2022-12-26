@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "read_write_ci_bucket_policy",
+    "Id": "ci_read_write_temp_policy",
     "Statement": [
         {
             "Sid": "CreateDestroyCiBuckets",
