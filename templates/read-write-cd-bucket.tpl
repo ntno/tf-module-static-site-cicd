@@ -17,20 +17,6 @@
             "Resource": [
                 "arn:aws:s3:::${bucket-name}"
             ]
-        },
-        {
-            "Sid": "ReadWriteCdBucketObjects",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:PutObject",
-                "s3:PutObjectAcl",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::${bucket-name}/*"
-            ]
         }
     ]
 }
