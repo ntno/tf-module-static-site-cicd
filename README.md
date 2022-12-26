@@ -21,3 +21,20 @@ CD Role:
 - set up GitHub OpenID Connect provider
   - [Use OpenID Connect within your workflows to authenticate with Amazon Web Services.](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services) 
   - [AWS Credentials GitHub action](https://github.com/aws-actions/configure-aws-credentials)
+
+## example usage:   
+
+```
+# update x.x.x to desired version
+module "docs_site_cicd" {
+  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
+  site_bucket                = "ntno.net"
+  artifact_bucket_name       = "ntno.net-artifacts"
+  ci_prefix                  = "ntno-net-ci-pr"
+  github_repo                = "ntno.net"
+  github_org                 = "ntno"
+  cloudfront_distribution_id = module.docs_site.content_cloudfront_distribution_info.id
+  tags                       = local.global_tags
+}
+
+```
