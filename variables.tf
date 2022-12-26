@@ -23,6 +23,11 @@ variable "github_org" {
   type        = string
 }
 
+variable "github_cd_environment_name" {
+  description = "GitHub environment name to restrict Continuous Deployment IAM Role to"
+  type        = string
+}
+
 variable "ci_prefix" {
   description = "Prefix to restrict S3/Cloudformation actions"
   type        = string

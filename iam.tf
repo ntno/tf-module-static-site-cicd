@@ -14,7 +14,7 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
 resource "aws_iam_role" "ci_role" {
   name = var.ci_role_name
   tags = var.tags
-  assume_role_policy = templatefile("${path.module}/templates/cicd-github-trust-policy.tpl",
+  assume_role_policy = templatefile("${path.module}/templates/ci-github-trust-policy.tpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
       github-repo    = var.github_repo
@@ -28,9 +28,10 @@ resource "aws_iam_role" "cd_role" {
   tags = var.tags
   assume_role_policy = templatefile("${path.module}/templates/cd-github-trust-policy.tpl",
     {
-      aws-account-id = data.aws_caller_identity.current.account_id
-      github-repo    = var.github_repo
-      github-org     = var.github_org
+      aws-account-id        = data.aws_caller_identity.current.account_id
+      github-repo           = var.github_repo
+      github-org            = var.github_org
+      github-cd-environment = var.github_cd_environment_name
     }
   )
 }
