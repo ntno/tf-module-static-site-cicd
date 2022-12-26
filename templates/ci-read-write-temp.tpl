@@ -19,8 +19,7 @@
                 "s3:DeleteBucketPolicy",
                 "s3:DeleteBucket",
                 "s3:GetBucketPolicy",
-                "s3:GetEncryptionConfiguration",
-                "s3:ListBucket"
+                "s3:GetEncryptionConfiguration"
             ],
             "Resource": [
                 "arn:aws:s3:::${ci-prefix}*"
@@ -34,9 +33,11 @@
                 "s3:PutObjectAcl",
                 "s3:GetObject",
                 "s3:DeleteObject",
-                "s3:DeleteObjectVersion"
+                "s3:DeleteObjectVersion",
+                "s3:ListBucket"
             ],
             "Resource": [
+                "arn:aws:s3:::${ci-prefix}*",
                 "arn:aws:s3:::${ci-prefix}*/*"
             ]
         }
