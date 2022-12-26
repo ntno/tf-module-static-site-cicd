@@ -18,7 +18,7 @@ resource "aws_iam_policy" "ssm_ci_policy" {
   description = format("Allows read/write on %s CI SSM Parameters", var.site_bucket)
   tags        = var.tags
 
-  policy = module.ssm_ci_policy_document[1].policy_json
+  policy = module.ssm_ci_policy_document[0].policy_json
 }
 
 module "ssm_ci_policy_document" {
@@ -35,7 +35,7 @@ resource "aws_iam_policy" "ssm_cd_policy" {
   description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
   tags        = var.tags
 
-  policy = module.ssm_cd_policy_document[1].policy_json
+  policy = module.ssm_cd_policy_document[0].policy_json
 }
 
 module "ssm_cd_policy_document" {

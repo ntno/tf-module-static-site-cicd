@@ -33,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "read_write_artifacts_cd_policy_attach
 resource "aws_iam_role_policy_attachment" "ssm_cd_policy_attachment" {
   count      = local.enable_cd_ssm_policy ? 1 : 0
   role       = aws_iam_role.cd_role.name
-  policy_arn = aws_iam_policy.ssm_cd_policy[1].arn
+  policy_arn = aws_iam_policy.ssm_cd_policy[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "read_write_site_bucket_cd_policy_attachment" {

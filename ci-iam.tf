@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "read_write_artifacts_ci_policy_attach
 resource "aws_iam_role_policy_attachment" "ssm_ci_policy_attachment" {
   count = local.enable_ci_ssm_policy ? 1 : 0
   role       = aws_iam_role.ci_role.name
-  policy_arn = aws_iam_policy.ssm_ci_policy[1].arn
+  policy_arn = aws_iam_policy.ssm_ci_policy[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "read_write_temp_bucket_ci_policy_attachment" {
