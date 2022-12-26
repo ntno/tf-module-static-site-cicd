@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "cdcd_read_write_artifacts_policy",
+    "Id": "cicd_read_write_artifacts_policy",
     "Statement": [
         {
             "Sid": "ReadWriteArtifactsBucketObjects",
