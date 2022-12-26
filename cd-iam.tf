@@ -1,4 +1,3 @@
-
 resource "aws_iam_policy" "read_write_site_bucket_cd_policy" {
   name        = format("CD_ReadWrite_S3_%s", var.site_bucket)
   path        = "/CustomerManaged/"
@@ -25,7 +24,6 @@ resource "aws_iam_policy" "invalidate_cloudfront_cd_policy" {
     }
   )
 }
-
 
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_cd_policy_attachment" {
   role       = aws_iam_role.cd_role.name

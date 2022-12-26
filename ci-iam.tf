@@ -1,5 +1,3 @@
-
-
 resource "aws_iam_policy" "read_write_temp_bucket_ci_policy" {
   name        = format("CI_ReadWrite_S3_%s", var.ci_prefix)
   path        = "/CustomerManaged/"
@@ -27,8 +25,6 @@ resource "aws_iam_policy" "read_write_cloudformation_ci_policy" {
   )
 
 }
-
-
 
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_ci_policy_attachment" {
   role       = aws_iam_role.ci_role.name

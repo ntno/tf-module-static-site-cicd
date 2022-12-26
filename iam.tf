@@ -1,4 +1,3 @@
-
 resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
   name        = format("CICD_ReadWrite_S3_%s", var.artifact_bucket_name)
   path        = "/CustomerManaged/"
@@ -33,4 +32,3 @@ resource "aws_iam_role" "cd_role" {
     }
   )
 }
-
