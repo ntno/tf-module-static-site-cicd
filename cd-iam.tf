@@ -7,7 +7,7 @@ resource "aws_iam_policy" "read_write_site_bucket_cd_policy" {
 
   policy = templatefile("${path.module}/templates/read-write-ci-bucket.tpl",
     {
-      bucket-name = var.site_bucket
+      ci-prefix = var.site_bucket
     }
   )
 }
