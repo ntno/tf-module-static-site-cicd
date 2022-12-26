@@ -13,6 +13,16 @@ variable "artifact_bucket_name" {
   type        = string
 }
 
+variable "github_repo" {
+  description = "GitHub repository for OIDC"
+  type = string
+}
+
+variable "github_org" {
+  description = "GitHub organization for OIDC"
+  type = string
+}
+
 variable "ci_prefix" {
   description = "Prefix to restrict S3/Cloudformation actions"
   type        = string
