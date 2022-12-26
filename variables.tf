@@ -5,7 +5,7 @@ variable "domain_name" {
 
 variable "cloudfront_distribution_id" {
   description = "Cloudfront distribution id to the main site.  Used to invalidate cache after site deployment"
-  type = string
+  type        = string
 }
 
 variable "artifact_bucket_name" {
