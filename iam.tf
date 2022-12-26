@@ -17,34 +17,15 @@ resource "aws_iam_policy" "ssm_ci_policy" {
   description = format("Allows read/write on %s CI SSM Parameters", var.site_bucket)
   tags        = var.tags
 
-  policy = data.aws_iam_policy_document.ssm_ci_policy_document.json
-
-  # templatefile("${path.module}/templates/ssm.tpl",
-  #   {
-  #     read-paths  = jsonencode(var.ci_ssm_paths["read"])
-  #     write-paths = jsonencode(var.ci_ssm_paths["write"])
-  #   }
-  # )
+  policy = module.ssm_ci_policy_document.policy_json
 }
 
-
-data "aws_iam_policy_document" "ssm_ci_policy_document" {
-  dynamic "statement" {
-    for_each = var.ci_ssm_paths["read"]
-    content {
-      sid = "ReadParameters"
-      actions = [
-        "ssm:GetParameterHistory",
-        "ssm:GetParametersByPath",
-        "ssm:GetParameters",
-        "ssm:GetParameter"
-      ]
-      resources = [
-        format("arn:aws:ssm:%s:%s:parameter%s", data.aws_region.current.name, data.aws_caller_identity.current.account_id, statement.value)
-      ]
-    }
-  }
+module "ssm_ci_policy_document" {
+  source = "./modules/dynamic-ssm-policy"
+  read   = var.ci_ssm_paths["read"]
+  write  = var.ci_ssm_paths["read"]
 }
+
 
 
 # resource "aws_iam_policy" "ssm_cd_policy" {
