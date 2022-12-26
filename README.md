@@ -22,8 +22,7 @@ CD Role:
   - [Use OpenID Connect within your workflows to authenticate with Amazon Web Services.](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services) 
   - [AWS Credentials GitHub action](https://github.com/aws-actions/configure-aws-credentials)
 
-## example usage
-
+## example usage
 
 ```
 # update x.x.x to desired version
