@@ -5,7 +5,6 @@
         {
             "Sid": "CreateDestroyCiCloudformationStacks",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "cloudformation:RollbackStack",
                 "cloudformation:CreateStack",

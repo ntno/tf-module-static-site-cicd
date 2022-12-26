@@ -5,7 +5,6 @@
         {
             "Sid": "ReadParameters",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "ssm:GetParameterHistory",
                 "ssm:GetParametersByPath",
@@ -17,7 +16,6 @@
         {
             "Sid": "WriteParameters",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "ssm:PutParameter",
                 "ssm:LabelParameterVersion",

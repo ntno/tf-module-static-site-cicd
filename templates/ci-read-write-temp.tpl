@@ -5,7 +5,6 @@
         {
             "Sid": "CreateDestroyCiBuckets",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "s3:GetBucketPublicAccessBlock",
                 "s3:PutBucketPublicAccessBlock",
@@ -29,7 +28,6 @@
         {
             "Sid": "ReadWriteCiBucketObjects",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "s3:PutObject",
                 "s3:PutObjectAcl",

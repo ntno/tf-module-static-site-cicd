@@ -5,7 +5,6 @@
         {
             "Sid": "InvalidateCloudfrontDistribution",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "cloudfront:CreateInvalidation"
             ],

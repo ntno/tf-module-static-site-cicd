@@ -5,7 +5,6 @@
         {
             "Sid": "ReadCdBucketConfig",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "s3:GetBucketPublicAccessBlock",
                 "s3:GetBucketWebsite",
@@ -20,7 +19,6 @@
         {
             "Sid": "ReadWriteCdBucketObjects",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "s3:PutObject",
                 "s3:PutObjectAcl",

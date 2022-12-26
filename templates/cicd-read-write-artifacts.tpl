@@ -5,7 +5,6 @@
         {
             "Sid": "ReadWriteArtifactsBucketObjects",
             "Effect": "Allow",
-            "Principal": "*",
             "Action": [
                 "s3:PutObject",
                 "s3:GetObject",
