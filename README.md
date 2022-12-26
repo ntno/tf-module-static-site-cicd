@@ -35,6 +35,10 @@ module "docs_site_cicd" {
   github_org                 = "ntno"
   cloudfront_distribution_id = module.docs_site.content_cloudfront_distribution_info.id
   tags                       = local.global_tags
+  cd_ssm_paths = {
+    read  = ["/ntno.net/version"]
+    write = []
+  }
 }
 
 ```
