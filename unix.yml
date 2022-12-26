@@ -1,0 +1,14 @@
+version: '3'
+services:  
+  unix:
+    image: ntno/ubuntu-build-base:1.0.0
+    restart: "no"    
+    volumes:
+      - ~/.aws/:/root/.aws:ro    #ro for read only
+      - $PWD:/usr/src
+    environment:
+      AWS_PROFILE: default
+      AWS_SHARED_CREDENTIALS_FILE: /root/.aws/credentials
+      AWS_SDK_LOAD_CONFIG: 1
+      GITHUB_PERSONAL_USERNAME: $GITHUB_PERSONAL_USERNAME
+      GITHUB_PERSONAL_TOKEN: $GITHUB_PERSONAL_TOKEN      
