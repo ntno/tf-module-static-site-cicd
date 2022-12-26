@@ -28,6 +28,16 @@ variable "ci_prefix" {
   type        = string
 }
 
+variable "ci_role_name" {
+  description = "Continuous Integration IAM Role name"
+  type        = string
+}
+
+variable "cd_role_name" {
+  description = "Continuous Deployment IAM Role name"
+  type        = string
+}
+
 variable "ci_ssm_paths" {
   description = "SSM Parameters to grant CI access to"
   type        = object({ read = list(string), write = list(string) })

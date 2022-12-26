@@ -12,7 +12,7 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
 }
 
 resource "aws_iam_role" "ci_role" {
-  name = format("CI-%s", var.site_bucket)
+  name = var.ci_role_name
   tags = var.tags
   assume_role_policy = templatefile("${path.module}/templates/cicd-github-trust-policy.tpl",
     {
@@ -23,7 +23,7 @@ resource "aws_iam_role" "ci_role" {
 }
 
 resource "aws_iam_role" "cd_role" {
-  name = format("CD-%s", var.site_bucket)
+  name = var.cd_role_name
   tags = var.tags
   assume_role_policy = templatefile("${path.module}/templates/cicd-github-trust-policy.tpl",
     {
