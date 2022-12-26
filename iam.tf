@@ -23,24 +23,23 @@ resource "aws_iam_policy" "ssm_ci_policy" {
 module "ssm_ci_policy_document" {
   source = "./modules/dynamic-ssm-policy"
   read   = var.ci_ssm_paths["read"]
-  write  = var.ci_ssm_paths["read"]
+  write  = var.ci_ssm_paths["write"]
 }
 
+resource "aws_iam_policy" "ssm_cd_policy" {
+  name        = format("CD_ReadWrite_SSM_%s", var.site_bucket)
+  path        = "/CustomerManaged/"
+  description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
+  tags        = var.tags
 
+  policy = module.ssm_cd_policy_document.policy_json
+}
 
-# resource "aws_iam_policy" "ssm_cd_policy" {
-#   name        = format("CD_ReadWrite_SSM_%s", var.site_bucket)
-#   path        = "/CustomerManaged/"
-#   description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
-#   tags        = var.tags
-
-#   policy = templatefile("${path.module}/templates/ssm.tpl",
-#     {
-#       read-paths  = jsonencode(var.cd_ssm_paths["read"])
-#       write-paths = jsonencode(var.cd_ssm_paths["write"])
-#     }
-#   )
-# }
+module "ssm_cd_policy_document" {
+  source = "./modules/dynamic-ssm-policy"
+  read   = var.cd_ssm_paths["read"]
+  write  = var.cd_ssm_paths["write"]
+}
 
 resource "aws_iam_role" "ci_role" {
   name = format("CI-%s", var.site_bucket)
