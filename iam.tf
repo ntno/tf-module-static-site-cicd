@@ -17,27 +17,49 @@ resource "aws_iam_policy" "ssm_ci_policy" {
   description = format("Allows read/write on %s CI SSM Parameters", var.site_bucket)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/ssm.tpl",
-    {
-      read-paths  = jsonencode(var.ci_ssm_paths["read"])
-      write-paths = jsonencode(var.ci_ssm_paths["write"])
-    }
-  )
+  policy = data.aws_iam_policy_document.ssm_ci_policy_document.json
+
+  # templatefile("${path.module}/templates/ssm.tpl",
+  #   {
+  #     read-paths  = jsonencode(var.ci_ssm_paths["read"])
+  #     write-paths = jsonencode(var.ci_ssm_paths["write"])
+  #   }
+  # )
 }
 
-resource "aws_iam_policy" "ssm_cd_policy" {
-  name        = format("CD_ReadWrite_SSM_%s", var.site_bucket)
-  path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
-  tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/ssm.tpl",
-    {
-      read-paths  = jsonencode(var.cd_ssm_paths["read"])
-      write-paths = jsonencode(var.cd_ssm_paths["write"])
+data "aws_iam_policy_document" "ssm_ci_policy_document" {
+  dynamic "statement" {
+    for_each = var.ci_ssm_paths["read"]
+    content {
+      sid = "ReadParameters"
+      actions = [
+        "ssm:GetParameterHistory",
+        "ssm:GetParametersByPath",
+        "ssm:GetParameters",
+        "ssm:GetParameter"
+      ]
+      resources = [
+        format("arn:aws:ssm:*:%s:parameter/%s", data.aws_caller_identity.current.account_id, "${each.value}")
+      ]
     }
-  )
+  }
 }
+
+
+# resource "aws_iam_policy" "ssm_cd_policy" {
+#   name        = format("CD_ReadWrite_SSM_%s", var.site_bucket)
+#   path        = "/CustomerManaged/"
+#   description = format("Allows read/write on %s CD SSM Parameters", var.site_bucket)
+#   tags        = var.tags
+
+#   policy = templatefile("${path.module}/templates/ssm.tpl",
+#     {
+#       read-paths  = jsonencode(var.cd_ssm_paths["read"])
+#       write-paths = jsonencode(var.cd_ssm_paths["write"])
+#     }
+#   )
+# }
 
 resource "aws_iam_role" "ci_role" {
   name = format("CI-%s", var.site_bucket)
