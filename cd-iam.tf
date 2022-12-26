@@ -12,39 +12,6 @@ resource "aws_iam_policy" "read_write_site_bucket_cd_policy" {
   )
 }
 
-  # {
-  #           "Sid": "ReadWriteCdBucketObjects",
-  #           "Effect": "Allow",
-  #           "Principal": "*",
-  #           "Action": [
-  #               "s3:PutObject",
-  #               "s3:PutObjectAcl",
-  #               "s3:GetObject",
-  #               "s3:DeleteObject"
-  #           ],
-  #           "Resource": [
-  #               "arn:aws:s3:::${bucket-name}/*"
-  #           ]
-  #       }
-# ,
-
-#         {
-#             "Sid": "ReadCdBucketConfig",
-#             "Effect": "Allow",
-#             "Principal": "*",
-#             "Action": [
-#                 "s3:GetBucketPublicAccessBlock",
-#                 "s3:GetBucketWebsite",
-#                 "s3:GetBucketAcl",
-#                 "s3:GetBucketPolicy",
-#                 "s3:GetEncryptionConfiguration"
-#             ],
-#             "Resource": [
-#                 "arn:aws:s3:::${bucket-name}"
-#             ]
-#         }
-        
-
 resource "aws_iam_policy" "invalidate_cloudfront_cd_policy" {
   name        = format("InvalidateCloudfrontDistribution_CD_%s", var.site_bucket)
   path        = "/CustomerManaged/"
