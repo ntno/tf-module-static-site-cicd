@@ -28,6 +28,25 @@ variable "ci_prefix" {
   type        = string
 }
 
+variable "ci_ssm_paths" {
+  description = "SSM Parameters to grant CI access to"
+  type        = object({ read = list(string), write = list(string) })
+  default = {
+    read  = []
+    write = []
+  }
+}
+
+variable "cd_ssm_paths" {
+  description = "SSM Parameters to grant CD access to"
+  type        = object({ read = list(string), write = list(string) })
+  default = {
+    read  = []
+    write = []
+  }
+}
+
+
 variable "tags" {
   description = "Tags to set"
   type        = map(string)
