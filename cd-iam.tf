@@ -30,6 +30,11 @@ resource "aws_iam_role_policy_attachment" "read_write_artifacts_cd_policy_attach
   policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "ssm_cd_policy_attachment" {
+  role       = aws_iam_role.cd_role.name
+  policy_arn = aws_iam_policy.ssm_cd_policy.arn
+}
+
 resource "aws_iam_role_policy_attachment" "read_write_site_bucket_cd_policy_attachment" {
   role       = aws_iam_role.cd_role.name
   policy_arn = aws_iam_policy.read_write_site_bucket_cd_policy.arn
