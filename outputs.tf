@@ -7,11 +7,12 @@ output "artifacts_bucket_info" {
 }
 
 output "ci_role_info" {
-  description = "Map containing the CI IAM Role's arn, name, and S3/Cloudformation prefix restriction"
+  description = "Map containing the CI IAM Role's arn, name, S3/Cloudformation prefix restriction, and associated github_environment_name"
   value = {
-    arn       = module.ci_role.role_arn
-    name      = module.ci_role.role_name
-    ci_prefix = module.ci_role.ci_prefix
+    arn                     = module.ci_role.role_arn
+    name                    = module.ci_role.role_name
+    ci_prefix               = module.ci_role.ci_prefix
+    github_environment_name = module.ci_role.github_environment_name
   }
 }
 
