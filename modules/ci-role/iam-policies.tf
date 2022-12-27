@@ -11,10 +11,30 @@ module "ssm_policy_attachment" {
   tags               = var.tags
 }
 
+resource "aws_iam_policy" "read_write_temp_site_bucket_policy" {
+  path        = local.iam_policy_path
+  name        = format("CI_ReadWrite_S3_%s", var.ci_prefix)
+  description = format("Allows read/write on %s* S3 buckets", var.ci_prefix)
+  tags        = var.tags
 
+  policy = templatefile("${path.module}/templates/read-write-temp-site.tpl",
+    {
+      ci-prefix = var.ci_prefix
+    }
+  )
+}
 
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_policy_attachment" {
   role       = aws_iam_role.iam_role.name
   policy_arn = var.read_write_artifact_bucket_policy_arn
 }
 
+resource "aws_iam_role_policy_attachment" "read_write_temp_site_bucket_policy_attachment" {
+  role       = aws_iam_role.iam_role.name
+  policy_arn = aws_iam_policy.read_write_temp_site_bucket_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "manage_temp_cloudformation_policy_attachment" {
+  role       = aws_iam_role.iam_role.name
+  policy_arn = aws_iam_policy.manage_temp_cloudformation_policy.arn
+}
