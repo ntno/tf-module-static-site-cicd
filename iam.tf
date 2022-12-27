@@ -14,12 +14,16 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
 module "ci_role" {
   source                                = "./modules/ci-role"
   read_write_artifact_bucket_policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
-  ci_prefix                             = var.ci_prefix
-  ssm_read_paths                        = var.ci_ssm_paths["read"]
-  ssm_write_paths                       = var.ci_ssm_paths["write"]
+  github_environment_name               = var.integration_environment.github_environment_name
+  ci_prefix                             = var.integration_environment.ci_prefix
+  ssm_read_paths                        = var.integration_environment.ssm_read_paths
+  ssm_write_paths                       = var.integration_environment.ssm_write_paths
   github_org                            = var.github_org
   github_repo                           = var.github_repo
-  tags                                  = var.tags
+  tags = merge(
+    var.tags,
+    var.integration_environment.tags
+  )
 }
 
 module "cd_roles" {

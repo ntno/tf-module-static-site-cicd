@@ -35,3 +35,8 @@ variable "github_org" {
   description = "GitHub organization for OIDC"
   type        = string
 }
+
+variable "github_environment_name" {
+  description = "Associated GitHub environment.  Reserved for future use"
+  type        = string
+}

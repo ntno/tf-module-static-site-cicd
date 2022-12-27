@@ -13,18 +13,14 @@ variable "github_org" {
   type        = string
 }
 
-variable "ci_prefix" {
-  description = "Prefix to restrict S3/Cloudformation actions"
-  type        = string
-}
-
-variable "ci_ssm_paths" {
-  description = "SSM Parameters to grant CI access to"
-  type        = object({ read = list(string), write = list(string) })
-  default = {
-    read  = []
-    write = []
-  }
+variable "integration_environment" {
+  type = object({
+    github_environment_name = string
+    ci_prefix               = string
+    ssm_read_paths          = optional(list(string))
+    ssm_write_paths         = optional(list(string))
+    tags                    = optional(map(string))
+  })
 }
 
 variable "deployment_environments" {
