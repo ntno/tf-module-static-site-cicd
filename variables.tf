@@ -38,17 +38,17 @@ variable "deployment_environments" {
       tags                       = optional(map(string))
     })
   )
-  default = {
-    "production" = {
-      github_environment_name = "prod"
-      deploy_bucket           = "factually-settled-boxer"
-    },
-    "development" = {
-      github_environment_name = "ci"
-      deploy_bucket           = "dev.factually-settled-boxer"
-    }
-  }
+  default = {}
 }
+
+# "production" = {
+#   github_environment_name = "prod"
+#   deploy_bucket           = "factually-settled-boxer"
+# },
+# "development" = {
+#   github_environment_name = "ci"
+#   deploy_bucket           = "dev.factually-settled-boxer"
+# }
 
 variable "tags" {
   description = "Tags to set"
