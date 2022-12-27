@@ -13,8 +13,8 @@ module "ssm_policy_attachment" {
 
 resource "aws_iam_policy" "read_write_site_bucket_policy" {
   path        = local.iam_policy_path
-  name        = format("CD_ReadWrite_S3_%s", local.iam_descriptor)
-  description = format("Allows read/write on %s objects", local.iam_descriptor)
+  name        = format("CD_ReadWrite_S3_%s", var.deploy_bucket)
+  description = format("Allows read/write on %s objects", var.deploy_bucket)
   tags        = var.tags
 
   policy = templatefile("${path.module}/templates/read-write-site.tpl",
