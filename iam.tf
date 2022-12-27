@@ -26,7 +26,7 @@ module "cd_roles" {
   source                                = "./modules/environment-deployment-role"
   for_each                              = var.deployment_environments
   read_write_artifact_bucket_policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
-  env_name                              = each.value.env_name
+  env_name                              = each.key
   github_environment_name               = each.value.github_environment_name
   deploy_bucket                         = each.value.deploy_bucket
   cloudfront_distribution_id            = each.value.cloudfront_distribution_id

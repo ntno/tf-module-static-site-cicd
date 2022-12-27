@@ -28,29 +28,26 @@ variable "ci_ssm_paths" {
 }
 
 variable "deployment_environments" {
-  type = list(object(
-    {
-      env_name                   = string
+  type = map(
+    object({
       github_environment_name    = string
       deploy_bucket              = string
       cloudfront_distribution_id = optional(string)
       ssm_read_paths             = optional(list(string))
       ssm_write_paths            = optional(list(string))
       tags                       = optional(map(string))
-    }
-  ))
-  default = [
-    {
-      env_name                = "production"
+    })
+  )
+  default = {
+    "production" = {
       github_environment_name = "prod"
       deploy_bucket           = "factually-settled-boxer"
     },
-    {
-      env_name                = "development"
+    "development" = {
       github_environment_name = "ci"
       deploy_bucket           = "dev.factually-settled-boxer"
     }
-  ]
+  }
 }
 
 variable "tags" {
