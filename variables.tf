@@ -52,13 +52,30 @@ variable "ci_ssm_paths" {
   }
 }
 
-variable "cd_ssm_paths" {
-  description = "SSM Parameters to grant CD access to"
-  type        = object({ read = list(string), write = list(string) })
-  default = {
-    read  = []
-    write = []
-  }
+variable "deployment_environments" {
+  type = list(object(
+    {
+      env_name                   = string
+      github_environment_name    = string
+      deploy_bucket              = string
+      cloudfront_distribution_id = optional(string)
+      ssm_read_paths             = optional(list(string))
+      ssm_write_paths            = optional(list(string))
+      tags                       = optional(map(string))
+    }
+  ))
+  default = [
+    {
+      env_name                = "production"
+      github_environment_name = "prod"
+      deploy_bucket           = "factually-settled-boxer"
+    },
+    {
+      env_name                = "development"
+      github_environment_name = "ci"
+      deploy_bucket           = "dev.factually-settled-boxer"
+    }
+  ]
 }
 
 variable "tags" {

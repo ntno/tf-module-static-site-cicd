@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "ssm_policy_document" {
 
 resource "aws_iam_policy" "ssm_policy" {
   name        = var.policy_name
-  path        = "/CustomerManaged/"
+  path        = var.policy_path
   description = var.policy_description
   tags        = var.tags
 
