@@ -33,9 +33,11 @@
                 "s3:PutObjectAcl",
                 "s3:GetObject",
                 "s3:DeleteObject",
-                "s3:DeleteObjectVersion"
+                "s3:DeleteObjectVersion",
+                "s3:ListBucket"
             ],
             "Resource": [
+                "arn:aws:s3:::${ci-prefix}*",
                 "arn:aws:s3:::${ci-prefix}*/*"
             ]
         }

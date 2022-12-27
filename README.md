@@ -12,6 +12,8 @@ CI Role:
   - read/write on SSM parameters (optional)
 
 CD Role:
+  - can only be assumed in job with github environment `github_cd_environment_name`
+    - this allows you to restrict who can deploy to the CD environment via repository/workflow settings
   - read/write to objects in artifact bucket
   - read/write to objects in site bucket
   - invalidate on cloudfront distribution for site
@@ -30,9 +32,12 @@ module "docs_site_cicd" {
   source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
   site_bucket                = "ntno.net"
   artifact_bucket_name       = "ntno.net-artifacts"
-  ci_prefix                  = "ntno-net-ci-pr"
+  ci_prefix                  = "ntno-net-ci-pr-"
+  ci_role_name               = "CI-ntno-net"
+  cd_role_name               = "CD-ntno-net"
   github_repo                = "ntno.net"
   github_org                 = "ntno"
+  github_cd_environment_name = "prod"
   cloudfront_distribution_id = module.docs_site.content_cloudfront_distribution_info.id
   tags                       = local.global_tags
   cd_ssm_paths = {
