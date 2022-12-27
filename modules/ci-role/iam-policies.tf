@@ -24,6 +24,21 @@ resource "aws_iam_policy" "read_write_temp_site_bucket_policy" {
   )
 }
 
+resource "aws_iam_policy" "manage_temp_cloudformation_policy" {
+  path        = local.iam_policy_path
+  name        = format("CI_Manage_Cloudformation_%s", var.ci_prefix)
+  description = format("Allows create/delete on %s* Cloudformation Stacks", var.ci_prefix)
+  tags        = var.tags
+
+  policy = templatefile("${path.module}/templates/ci-temp-cloudformation.tpl",
+    {
+      aws-account-id = data.aws_caller_identity.current.account_id
+      aws-region     = data.aws_region.current.name
+      ci-prefix      = var.ci_prefix
+    }
+  )
+}
+
 resource "aws_iam_role_policy_attachment" "read_write_artifacts_policy_attachment" {
   role       = aws_iam_role.iam_role.name
   policy_arn = var.read_write_artifact_bucket_policy_arn
