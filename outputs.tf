@@ -1,19 +1,9 @@
-# output "ci_role_name" {
-#   description = "CI IAM Role Name"
-#   value       = aws_iam_role.ci_role.name
-# }
+output "ci_role" {
+  description = "CI IAM Role Name and ARN"
+  value       = module.ci_role.output
+}
 
-# output "cd_role_name" {
-#   description = "CD IAM Role Name"
-#   value       = aws_iam_role.cd_role.name
-# }
-
-# output "ci_role_arn" {
-#   description = "CI IAM Role ARN"
-#   value       = aws_iam_role.ci_role.arn
-# }
-
-# output "cd_role_arn" {
-#   description = "CD IAM Role ARN"
-#   value       = aws_iam_role.cd_role.arn
-# }
+output "cd_roles" {
+  description = "list of CD IAM Role name/ARN/github_environment_name"
+  value       = module.cd_roles[*].output
+}

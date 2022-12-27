@@ -21,3 +21,21 @@ module "ci_role" {
   github_repo                           = var.github_repo
   tags                                  = var.tags
 }
+
+module "cd_roles" {
+  source                                = "./modules/environment-deployment-role"
+  for_each                              = var.deployment_environments
+  read_write_artifact_bucket_policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
+  env_name                              = each.value.env_name
+  github_environment_name               = each.value.github_environment_name
+  deploy_bucket                         = each.value.deploy_bucket
+  cloudfront_distribution_id            = each.value.cloudfront_distribution_id
+  ssm_read_paths                        = each.value.ssm_read_paths
+  ssm_write_paths                       = each.value.ssm_write_paths
+  github_org                            = var.github_org
+  github_repo                           = var.github_repo
+  tags = merge(
+    var.tags,
+    each.value.tags
+  )
+}
