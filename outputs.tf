@@ -1,3 +1,8 @@
+output "artifacts_bucket_name" {
+  description = "S3 artifacts bucket name"
+  value       = aws_s3_bucket.artifacts_bucket.id
+}
+
 output "ci_role" {
   description = "CI IAM Role Name and ARN"
   value = {
