@@ -1,8 +1,8 @@
 output "ci_role" {
   description = "CI IAM Role Name and ARN"
-  value       = {
+  value = {
     iam_role_name = module.ci_role.role_name
-    iam_role_arn = module.ci_role.role_arn
+    iam_role_arn  = module.ci_role.role_arn
   }
 }
 
