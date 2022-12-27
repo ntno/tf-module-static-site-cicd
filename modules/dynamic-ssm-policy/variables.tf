@@ -26,7 +26,7 @@ variable "role_name" {
 variable "policy_path" {
   description = "IAM path for policy"
   type        = string
-  default = "/CustomerManaged/"
+  default     = "/CustomerManaged/"
 }
 
 variable "tags" {

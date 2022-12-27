@@ -3,17 +3,10 @@ variable "read_write_artifact_bucket_policy_arn" {
   type        = string
 }
 
-# variable "env_name" {
-#   description = "User defined environment name.  Used to name IAM resources"
-#   type        = string
-# }
-
-# variable "github_environment_name" {
-#   description = "Used to sets the IAM trust policy on the deployment role.  Prevents use of the IAM role with any other GitHub environment"
-#   type        = string
-# }
-
-
+variable "ci_prefix" {
+  description = "Prefix to restrict S3/Cloudformation actions"
+  type        = string
+}
 
 variable "ssm_read_paths" {
   description = "SSM Parameters to grant read access to"

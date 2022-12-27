@@ -1,10 +1,10 @@
 module "ssm_policy_attachment" {
   count  = local.enable_ssm_policy ? 1 : 0
-  source = "./dynamic-ssm-policy"
+  source = "../dynamic-ssm-policy"
 
   policy_name        = format("CD_ReadWrite_SSM_%s", local.iam_descriptor)
   policy_description = format("Allows read/write on %s SSM Parameters", local.iam_descriptor)
-  policy_path = local.iam_policy_path
+  policy_path        = local.iam_policy_path
   read               = var.ssm_read_paths
   write              = var.ssm_write_paths
   role_name          = aws_iam_role.iam_role.name

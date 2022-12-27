@@ -1,10 +1,10 @@
 module "ssm_policy_attachment" {
   count  = local.enable_ssm_policy ? 1 : 0
-  source = "./dynamic-ssm-policy"
+  source = "../dynamic-ssm-policy"
 
   policy_name        = format("CI_ReadWrite_SSM_%s", local.iam_descriptor)
   policy_description = format("Allows read/write on %s SSM Parameters", local.iam_descriptor)
-  policy_path = local.iam_policy_path
+  policy_path        = local.iam_policy_path
   read               = var.ssm_read_paths
   write              = var.ssm_write_paths
   role_name          = aws_iam_role.iam_role.name
@@ -30,7 +30,7 @@ resource "aws_iam_policy" "manage_temp_cloudformation_policy" {
   description = format("Allows create/delete on %s* Cloudformation Stacks", var.ci_prefix)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/ci-temp-cloudformation.tpl",
+  policy = templatefile("${path.module}/templates/manage-temp-cloudformation-stacks.tpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
       aws-region     = data.aws_region.current.name
