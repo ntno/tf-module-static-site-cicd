@@ -9,6 +9,6 @@ output "role_arn" {
 }
 
 output "ci_prefix" {
-  description = "IAM Role ARN"
+  description = "S3/Cloudformation prefix restriction"
   value       = var.ci_prefix
 }
