@@ -2,7 +2,7 @@ module "ssm_policy_attachment" {
   count  = local.enable_ssm_policy ? 1 : 0
   source = "./dynamic-ssm-policy"
 
-  policy_name        = format("CD_ReadWrite_S3_%s", local.iam_descriptor)
+  policy_name        = format("CD_ReadWrite_SSM_%s", local.iam_descriptor)
   policy_description = format("Allows read/write on %s SSM Parameters", local.iam_descriptor)
   policy_path = local.iam_policy_path
   read               = var.ssm_read_paths
@@ -13,7 +13,7 @@ module "ssm_policy_attachment" {
 
 resource "aws_iam_policy" "read_write_site_bucket_policy" {
   path        = local.iam_policy_path
-  name        = format("CD_ReadWrite_SSM_%s", local.iam_descriptor)
+  name        = format("CD_ReadWrite_S3_%s", local.iam_descriptor)
   description = format("Allows read/write on %s objects", local.iam_descriptor)
   tags        = var.tags
 
