@@ -17,7 +17,7 @@ resource "aws_iam_policy" "read_write_site_bucket_policy" {
   description = format("Allows read/write on %s objects", var.deploy_bucket)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/read-write-site.tpl",
+  policy = templatefile("${path.module}/templates/read-write-site.tftpl",
     {
       bucket-name = var.deploy_bucket
     }
@@ -31,7 +31,7 @@ resource "aws_iam_policy" "invalidate_cloudfront_policy" {
   description = format("Allows invalidate on %s Cloudfront Distribution", local.iam_descriptor)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/invalidate-cloudfront.tpl",
+  policy = templatefile("${path.module}/templates/invalidate-cloudfront.tftpl",
     {
       aws-account-id             = data.aws_caller_identity.current.account_id
       cloudfront-distribution-id = var.cloudfront_distribution_id

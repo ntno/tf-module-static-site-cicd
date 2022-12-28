@@ -3,13 +3,8 @@ variable "read_write_artifact_bucket_policy_arn" {
   type        = string
 }
 
-variable "env_name" {
-  description = "User defined environment name.  Used to name IAM resources"
-  type        = string
-}
-
-variable "github_environment_name" {
-  description = "Used to sets the IAM trust policy on the deployment role.  Prevents use of the IAM role with any other GitHub environment"
+variable "environment_id" {
+  description = "Project unique ID used to manage named IAM policies"
   type        = string
 }
 
@@ -50,4 +45,10 @@ variable "github_repo" {
 variable "github_org" {
   description = "GitHub organization for OIDC"
   type        = string
+}
+
+variable "github_environment_name" {
+  description = "If provided, used to restrict OIDC role assumption.  Prevents use of the IAM role with any other GitHub environment"
+  type        = string
+  default     = ""
 }

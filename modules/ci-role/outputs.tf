@@ -13,7 +13,12 @@ output "ci_prefix" {
   value       = var.ci_prefix
 }
 
+output "environment_id" {
+  description = "Project unique ID"
+  value       = var.environment_id
+}
+
 output "github_environment_name" {
-  description = "associated GitHub environment"
+  description = "Associated GitHub environment"
   value       = var.github_environment_name
 }
