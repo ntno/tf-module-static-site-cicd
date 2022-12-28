@@ -8,14 +8,14 @@ output "artifacts_bucket_info" {
 
 output "ci_role_info" {
   description = "Environment ID to Map containing the CI IAM Role's arn, name, S3/Cloudformation prefix restriction, and associated github_environment_name"
-  value = {
-    for key, val in ({(module.ci_role.environment_id): {}}) : key => {
-      arn                     = module.ci_role.role_arn
-      name                    = module.ci_role.role_name
-      ci_prefix               = module.ci_role.ci_prefix
+  value = tomap({
+    (module.ci_role.environment_id) = tomap({
+      arn                     = module.ci_role.role_arn,
+      name                    = module.ci_role.role_name,
+      ci_prefix               = module.ci_role.ci_prefix,
       github_environment_name = module.ci_role.github_environment_name
-    }
-  }
+    })
+  })
 }
 
 output "cd_role_info" {
