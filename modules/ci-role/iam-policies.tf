@@ -17,7 +17,7 @@ resource "aws_iam_policy" "read_write_temp_site_bucket_policy" {
   description = format("Allows read/write on %s* S3 buckets", var.ci_prefix)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/read-write-temp-site.tpl",
+  policy = templatefile("${path.module}/templates/read-write-temp-site.tftpl",
     {
       ci-prefix = var.ci_prefix
     }
@@ -30,7 +30,7 @@ resource "aws_iam_policy" "manage_temp_cloudformation_policy" {
   description = format("Allows create/delete on %s* Cloudformation Stacks", var.ci_prefix)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/manage-temp-cloudformation-stacks.tpl",
+  policy = templatefile("${path.module}/templates/manage-temp-cloudformation-stacks.tftpl",
     {
       aws-account-id = data.aws_caller_identity.current.account_id
       aws-region     = data.aws_region.current.name
