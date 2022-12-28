@@ -30,7 +30,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "artifact_bucket_s
 
 resource "aws_s3_bucket_policy" "artifact_bucket_policy" {
   bucket = aws_s3_bucket.artifacts_bucket.id
-  policy = templatefile("${path.module}/templates/artifacts-bucket.tpl",
+  policy = templatefile("${path.module}/templates/artifacts-bucket.tftpl",
     {
       bucket-name = aws_s3_bucket.artifacts_bucket.id
     }

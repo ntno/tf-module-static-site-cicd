@@ -4,7 +4,7 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
   description = format("Allows read/write on %s objects", var.artifact_bucket_name)
   tags        = var.tags
 
-  policy = templatefile("${path.module}/templates/cicd-read-write-artifacts.tpl",
+  policy = templatefile("${path.module}/templates/cicd-read-write-artifacts.tftpl",
     {
       bucket-name = var.artifact_bucket_name
     }
