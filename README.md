@@ -32,9 +32,46 @@ CD Role(s):
 ### with GitHub Environment
 Assume the following steps have already been completed:
 - set up GitHub OpenID Connect provider (see prerequisites)
+- create S3 static website bucket `ntno.net`
+  - See [`ntno/tf-ntno.net`](https://github.com/ntno/tf-ntno.net) for complete example
+- `gh-ci` and `gh-prod` GitHub Environment created in `ntno/ntno.net` repository (required for this example)
+
+```
+module "portfolio_site_cicd" {
+  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
+
+  artifact_bucket_name = "ntno.net-artifacts"
+  github_org           = "ntno"
+  github_repo          = "ntno.net"
+  tags                 = local.global_tags
+
+  integration_environment = {
+    environment_id          = "integration"
+    github_environment_name = "gh-ci"
+    ci_prefix               = "ntno-net-ci-pr"
+    tags = {
+      project-environment = "integration"
+    }
+  }
+
+  deployment_environments = {
+    "production" = {
+      deploy_bucket              = "ntno.net"
+      github_environment_name    = "gh-prod"
+      cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
+      tags = {
+        project-environment = "production"
+      }
+    }
+  }
+}
+```
+
+### without GitHub Environment
+Assume the following steps have already been completed:
+- set up GitHub OpenID Connect provider (see prerequisites)
 - create S3 static website buckets `factually-settled-boxer` and `factually-settled-boxer-development`
   - See [`infra/`](https://github.com/ntno/mkdocs-demo/tree/main/infra) in `ntno/mkdocs-demo` for complete example
-- `gh-prod` GitHub Environment created in `ntno/mkdocs-demo` repository (required for this example)
 
 ```
 # update x.x.x to desired version
