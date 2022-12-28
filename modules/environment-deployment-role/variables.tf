@@ -8,11 +8,6 @@ variable "environment_id" {
   type        = string
 }
 
-variable "github_environment_name" {
-  description = "Used to sets the IAM trust policy on the deployment role.  Prevents use of the IAM role with any other GitHub environment"
-  type        = string
-}
-
 variable "deploy_bucket" {
   description = "Name of the S3 bucket where the site will be deployed"
   type        = string
@@ -50,4 +45,10 @@ variable "github_repo" {
 variable "github_org" {
   description = "GitHub organization for OIDC"
   type        = string
+}
+
+variable "github_environment_name" {
+  description = "If provided, used to restrict OIDC role assumption.  Prevents use of the IAM role with any other GitHub environment"
+  type        = string
+  default     = ""
 }
