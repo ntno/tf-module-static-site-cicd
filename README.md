@@ -10,34 +10,45 @@ CI Role:
   - create/destroy S3 buckets for static website testing (restricted by bucket name)
     - read/write to temporary S3 buckets
   - read/write on specified SSM parameters (optional)
-
+  - role assumption restricted to a specific github environment `github_environment_name` (optional)
+  
 CD Role(s):
-  - can only be assumed in job with github environment `github_cd_environment_name`
-    - this allows you to restrict who can deploy to the CD environment via repository/workflow settings
   - read/write to objects in artifact bucket
   - read/write to objects in site bucket
   - invalidate on cloudfront distribution for site (optional)
   - read/write on specified SSM parameters (optional)
-  
+  - role assumption restricted to a specific github environment `github_environment_name` (optional)
+    - this allows you to restrict who can deploy to the CD environment via repository/workflow settings
+
 ## prerequisites
 - set up GitHub OpenID Connect provider
   - [Use OpenID Connect within your workflows to authenticate with Amazon Web Services.](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services) 
   - [AWS Credentials GitHub action](https://github.com/aws-actions/configure-aws-credentials)
+- create GitHub environments if using optional `github_environment_name` input
+  - GitHub environments are not required, if `github_environment_name` is left blank role may be assumed by workflows for any branch in the repository
 
 ## example usage
 
+### with GitHub Environment
+Assume the following steps have already been completed:
+- set up GitHub OpenID Connect provider (see prerequisites)
+- create S3 static website buckets `factually-settled-boxer` and `factually-settled-boxer-development`
+  - See [`infra/`](https://github.com/ntno/mkdocs-demo/tree/main/infra) in `ntno/mkdocs-demo` for complete example
+- `gh-prod` GitHub Environment created in `ntno/mkdocs-demo` repository (required for this example)
+
 ```
 # update x.x.x to desired version
-module "docs_site_cicd" {
-  source               = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
-  artifact_bucket_name = "ntno.net-artifacts"
-  github_repo          = "ntno.net"
+module "demo_site_cicd" {
+  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
+
+  artifact_bucket_name = "factually-settled-boxer-artifacts"
   github_org           = "ntno"
+  github_repo          = "mkdocs-demo"
   tags                 = local.global_tags
 
   integration_environment = {
-    ci_prefix               = "ntno-net-ci-pr-"
-    github_environment_name = "gh-ci"
+    environment_id = "integration"
+    ci_prefix      = format("%s-%s-ci-pr-", "ntno", "mkdocs-demo")
     tags = {
       project-environment = "integration"
     }
@@ -45,10 +56,16 @@ module "docs_site_cicd" {
 
   deployment_environments = {
     "production" = {
-      github_environment_name = "gh-prod"
-      deploy_bucket           = "ntno.net"
+      github_environment_name = "gh-prod" #setting github_environment_name restricts role assumption
+      deploy_bucket           = "factually-settled-boxer"
       tags = {
         project-environment = "production"
+      }
+    },
+    "development" = {
+      deploy_bucket = "factually-settled-boxer-development"
+      tags = {
+        project-environment = "development"
       }
     }
   }
