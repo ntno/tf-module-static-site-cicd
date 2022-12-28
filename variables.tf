@@ -36,6 +36,18 @@ variable "integration_environment" {
 }
 
 variable "deployment_environments" {
+  description = <<-EOT
+  Configuration for Continuous Deployment IAM Roles.  Map of Maps where
+  outer key is a project unique environment ID and each internal contains:
+  Required Keys:
+    deploy_bucket               = name of the S3 bucket where the site will be deployed
+  Optional Keys:
+    github_environment_name     = if provided, used to restrict role assumption
+    cloudfront_distribution_id  = if provided, used to create cloudfront cache invalidate IAM policy
+    ssm_read_paths              = SSM Parameters paths to grant read access to
+    ssm_write_paths             = SSM Parameters paths to grant write access to
+    tags                        = additional tags (merged with var.tags)
+  EOT
   type = map(
     object({
       deploy_bucket              = string
