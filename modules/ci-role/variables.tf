@@ -42,6 +42,7 @@ variable "github_org" {
 }
 
 variable "github_environment_name" {
-  description = "Associated GitHub environment.  Reserved for future use"
+  description = "If provided, used to restrict OIDC role assumption.  Prevents use of the IAM role with any other GitHub environment"
   type        = string
+  default     = ""
 }
