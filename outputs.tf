@@ -1,19 +1,28 @@
-output "ci_role_name" {
-  description = "CI IAM Role Name"
-  value       = aws_iam_role.ci_role.name
+output "artifacts_bucket_info" {
+  description = "Map containing the artifacts bucket's arn and id"
+  value = {
+    arn = aws_s3_bucket.artifacts_bucket.arn
+    id  = aws_s3_bucket.artifacts_bucket.id
+  }
 }
 
-output "cd_role_name" {
-  description = "CD IAM Role Name"
-  value       = aws_iam_role.cd_role.name
+output "ci_role_info" {
+  description = "Map containing the CI IAM Role's arn, name, S3/Cloudformation prefix restriction, and associated github_environment_name"
+  value = {
+    arn                     = module.ci_role.role_arn
+    name                    = module.ci_role.role_name
+    ci_prefix               = module.ci_role.ci_prefix
+    github_environment_name = module.ci_role.github_environment_name
+  }
 }
 
-output "ci_role_arn" {
-  description = "CI IAM Role ARN"
-  value       = aws_iam_role.ci_role.arn
-}
-
-output "cd_role_arn" {
-  description = "CD IAM Role ARN"
-  value       = aws_iam_role.cd_role.arn
+output "cd_role_info" {
+  description = "environment name to Map containing CD IAM Role's arn, name, and associated github_environment_name"
+  value = {
+    for key, val in module.cd_roles : key => {
+      arn                     = val.role_arn
+      name                    = val.role_name
+      github_environment_name = val.github_environment_name
+    }
+  }
 }

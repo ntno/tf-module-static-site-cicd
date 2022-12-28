@@ -2,22 +2,22 @@
 creates AWS infrastructure for reviewing static website.  compatible with [ntno/tf-module-static-site](https://github.com/ntno/tf-module-static-site).
 
 Artifact Bucket:
-- used to store versioned site content
+  - used to store rendered site content
 
 CI Role:
   - read/write to objects in artifact bucket
   - create cloudformation stacks (restricted by stack name)
   - create/destroy S3 buckets for static website testing (restricted by bucket name)
-  - read/write to temporary S3 buckets
-  - read/write on SSM parameters (optional)
+    - read/write to temporary S3 buckets
+  - read/write on specified SSM parameters (optional)
 
-CD Role:
+CD Role(s):
   - can only be assumed in job with github environment `github_cd_environment_name`
     - this allows you to restrict who can deploy to the CD environment via repository/workflow settings
   - read/write to objects in artifact bucket
   - read/write to objects in site bucket
-  - invalidate on cloudfront distribution for site
-  - read/write on SSM parameters (optional)
+  - invalidate on cloudfront distribution for site (optional)
+  - read/write on specified SSM parameters (optional)
   
 ## prerequisites
 - set up GitHub OpenID Connect provider
@@ -29,21 +29,28 @@ CD Role:
 ```
 # update x.x.x to desired version
 module "docs_site_cicd" {
-  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
-  site_bucket                = "ntno.net"
-  artifact_bucket_name       = "ntno.net-artifacts"
-  ci_prefix                  = "ntno-net-ci-pr-"
-  ci_role_name               = "CI-ntno-net"
-  cd_role_name               = "CD-ntno-net"
-  github_repo                = "ntno.net"
-  github_org                 = "ntno"
-  github_cd_environment_name = "prod"
-  cloudfront_distribution_id = module.docs_site.content_cloudfront_distribution_info.id
-  tags                       = local.global_tags
-  cd_ssm_paths = {
-    read  = ["/ntno.net/version"]
-    write = []
+  source               = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
+  artifact_bucket_name = "ntno.net-artifacts"
+  github_repo          = "ntno.net"
+  github_org           = "ntno"
+  tags                 = local.global_tags
+
+  integration_environment = {
+    ci_prefix               = "ntno-net-ci-pr-"
+    github_environment_name = "gh-ci"
+    tags = {
+      project-environment = "integration"
+    }
+  }
+
+  deployment_environments = {
+    "production" = {
+      github_environment_name = "gh-prod"
+      deploy_bucket           = "ntno.net"
+      tags = {
+        project-environment = "production"
+      }
+    }
   }
 }
-
 ```

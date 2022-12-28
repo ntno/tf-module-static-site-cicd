@@ -1,6 +1,6 @@
 {
     "Version": "2012-10-17",
-    "Id": "cd_invalidate_cloudfront_policy",
+    "Id": "invalidate_cloudfront_policy",
     "Statement": [
         {
             "Sid": "InvalidateCloudfrontDistribution",

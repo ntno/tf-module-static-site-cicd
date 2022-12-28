@@ -23,6 +23,12 @@ variable "role_name" {
   type        = string
 }
 
+variable "policy_path" {
+  description = "IAM path for policy"
+  type        = string
+  default     = "/CustomerManaged/"
+}
+
 variable "tags" {
   description = "Tags to set"
   type        = map(string)
