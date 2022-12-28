@@ -8,6 +8,11 @@ variable "ci_prefix" {
   type        = string
 }
 
+variable "environment_id" {
+  description = "Project unique ID used to manage named IAM policies"
+  type        = string
+}
+
 variable "ssm_read_paths" {
   description = "SSM Parameters to grant read access to"
   type        = list(string)

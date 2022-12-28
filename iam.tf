@@ -14,8 +14,9 @@ resource "aws_iam_policy" "read_write_artifacts_bucket_cicd_policy" {
 module "ci_role" {
   source                                = "./modules/ci-role"
   read_write_artifact_bucket_policy_arn = aws_iam_policy.read_write_artifacts_bucket_cicd_policy.arn
-  github_environment_name               = var.integration_environment.github_environment_name
+  environment_id                        = var.integration_environment.environment_id
   ci_prefix                             = var.integration_environment.ci_prefix
+  github_environment_name               = var.integration_environment.github_environment_name
   ssm_read_paths                        = var.integration_environment.ssm_read_paths
   ssm_write_paths                       = var.integration_environment.ssm_write_paths
   github_org                            = var.github_org
