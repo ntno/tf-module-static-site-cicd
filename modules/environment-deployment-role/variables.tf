@@ -3,8 +3,8 @@ variable "read_write_artifact_bucket_policy_arn" {
   type        = string
 }
 
-variable "env_name" {
-  description = "User defined environment name.  Used to name IAM resources"
+variable "environment_id" {
+  description = "Project unique ID used to manage named IAM policies"
   type        = string
 }
 
