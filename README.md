@@ -29,26 +29,26 @@ CD Role(s):
 ```
 # update x.x.x to desired version
 module "docs_site_cicd" {
-  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
-  artifact_bucket_name        = "ntno.net-artifacts"
-  github_repo                 = "ntno.net"
-  github_org                  = "ntno"
-  tags                        = local.global_tags
+  source               = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=x.x.x"
+  artifact_bucket_name = "ntno.net-artifacts"
+  github_repo          = "ntno.net"
+  github_org           = "ntno"
+  tags                 = local.global_tags
 
   integration_environment = {
-    ci_prefix                 = "ntno-net-ci-pr-"
-    github_environment_name   = "gh-ci"
+    ci_prefix               = "ntno-net-ci-pr-"
+    github_environment_name = "gh-ci"
     tags = {
-      project-environment     = "integration"
+      project-environment = "integration"
     }
   }
 
   deployment_environments = {
     "production" = {
-      github_environment_name   = "gh-prod"
-      deploy_bucket             = "ntno.net"
+      github_environment_name = "gh-prod"
+      deploy_bucket           = "ntno.net"
       tags = {
-        project-environment     = "production"
+        project-environment = "production"
       }
     }
   }
