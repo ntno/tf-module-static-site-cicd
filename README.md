@@ -56,7 +56,6 @@ module "demo_site_cicd" {
 
   deployment_environments = {
     "production" = {
-      github_environment_name = "gh-prod" #setting github_environment_name restricts role assumption
       deploy_bucket           = "factually-settled-boxer"
       tags = {
         project-environment = "production"
