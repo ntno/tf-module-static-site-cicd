@@ -14,9 +14,21 @@ variable "github_org" {
 }
 
 variable "integration_environment" {
+  description = <<-EOT
+  Configuration for Continuous Integration IAM Role.  Map containing:
+  Required Keys:
+    environment_id           = a project unique environment ID
+    ci_prefix                = prefix to restrict S3/Cloudformation IAM policies
+  Optional Keys:
+    github_environment_name  = if provided, used to restrict role assumption
+    ssm_read_paths           = SSM Parameters paths to grant read access to
+    ssm_write_paths          = SSM Parameters paths to grant write access to
+    tags                     = additional tags (merged with var.tags)
+  EOT
   type = object({
-    github_environment_name = string
+    environment_id          = string
     ci_prefix               = string
+    github_environment_name = optional(string)
     ssm_read_paths          = optional(list(string))
     ssm_write_paths         = optional(list(string))
     tags                    = optional(map(string))
@@ -26,8 +38,8 @@ variable "integration_environment" {
 variable "deployment_environments" {
   type = map(
     object({
-      github_environment_name    = string
       deploy_bucket              = string
+      github_environment_name    = optional(string)
       cloudfront_distribution_id = optional(string)
       ssm_read_paths             = optional(list(string))
       ssm_write_paths            = optional(list(string))
