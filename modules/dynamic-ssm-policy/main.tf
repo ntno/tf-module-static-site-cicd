@@ -2,9 +2,15 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
+# handle when optional values are null
+locals {
+  read_path_count        = can(length(var.read)) ? length(var.read) : 0
+  write_path_count       = can(length(var.write)) ? length(var.write) : 0
+}
+
 data "aws_iam_policy_document" "ssm_policy_document" {
   dynamic "statement" {
-    for_each = var.read
+    for_each = local.read_path_count == 0 ? [] : var.read
     content {
       sid = "ReadParameters"
       actions = [
@@ -20,7 +26,7 @@ data "aws_iam_policy_document" "ssm_policy_document" {
   }
 
   dynamic "statement" {
-    for_each = var.write
+    for_each = local.write_path_count == 0 ? [] : var.write
     content {
       sid = "WriteParameters"
       actions = [
