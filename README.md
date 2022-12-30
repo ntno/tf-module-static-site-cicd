@@ -59,6 +59,7 @@ module "portfolio_site_cicd" {
       deploy_bucket              = "ntno.net"
       github_environment_name    = "gh-prod"
       cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
+      ssm_read_paths             = [aws_ssm_parameter.portfolio_site_cloudfront_distribution_id.name]
       tags = {
         project-environment = "production"
       }
