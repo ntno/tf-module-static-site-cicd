@@ -12,7 +12,6 @@ data "aws_iam_policy_document" "ssm_policy_document" {
   dynamic "statement" {
     for_each = local.read_path_count == 0 ? [] : var.read
     content {
-      sid = "ReadParameters"
       actions = [
         "ssm:GetParameterHistory",
         "ssm:GetParametersByPath",
@@ -28,7 +27,6 @@ data "aws_iam_policy_document" "ssm_policy_document" {
   dynamic "statement" {
     for_each = local.write_path_count == 0 ? [] : var.write
     content {
-      sid = "WriteParameters"
       actions = [
         "ssm:PutParameter",
         "ssm:LabelParameterVersion",
